@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+#title {
+  color: #776e65;
+}
+
+#score,
+#best {
+  background-color: #bbada0;
+  text-align: center;
+}
+
+#scoreResult,
+#bestResult {
+  color: white;
+}
+
+h2 {
+  color: #eee4da;
+}

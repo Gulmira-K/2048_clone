@@ -1,2 +1,8 @@
-@import "summary.css";
-@import "matrix.css";
+@import 'summary.css';
+@import 'matrix.css';
+
+body {
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: #faf8ef;
+  position: static;
+}
