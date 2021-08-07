@@ -23,10 +23,11 @@ MatrixModel.prototype = Object.create(BaseModel.prototype);
 MatrixModel.prototype.constructor = MatrixModel;
 
 MatrixModel.prototype.randomPlace = function (min, max) {
-    if (min && max) {
-        return Math.floor(Math.random() * (max - min + 1)) + 1;
+    if (!min && !max) {
+        return Math.floor(Math.random() * this.generalSize);
     }
-    return Math.floor(Math.random() * this.generalSize);
+    
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 MatrixModel.prototype.randomNumber = function () {
@@ -34,8 +35,8 @@ MatrixModel.prototype.randomNumber = function () {
 }
 
 MatrixModel.prototype.displayDigitByKeyPress = function (code) {
-    this.attributes.grid[this.randomPlace()][this.randomPlace(0, 1)] = this.randomNumber();
-    this.attributes.grid[this.randomPlace()][this.randomPlace(2, 3)] = this.randomNumber();
+    this.attributes.grid[this.randomPlace()][this.randomPlace(0, this.generalSize / 2.5)] = this.randomNumber();
+    this.attributes.grid[this.randomPlace()][this.randomPlace(this.generalSize / 2 , this.generalSize )] = this.randomNumber();
 
     this.publish('changeData');
 }
