@@ -4,8 +4,8 @@ function AppView() {
 
     this.render = function (selector) {
         var element = document.getElementById(selector);
-        element.innerHTML = summaryView.render();
-        element.innerHTML = matrixView.render();
+        summaryView.show(element);
+        matrixView.show(element);
     }
 }
 
