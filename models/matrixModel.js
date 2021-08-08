@@ -31,7 +31,7 @@ MatrixModel.prototype.randomPlace = function (min, max) {
 }
 
 MatrixModel.prototype.randomNumber = function () {
-    return Math.random() < 0.8 ? '2' : '4';
+    return Math.random() < 0.8 ? 2 : 4;
 }
 
 MatrixModel.prototype.initGame = function () {
@@ -50,7 +50,7 @@ MatrixModel.prototype.displayDigitByKeyPress = function (code) {
             this.moveToLeft();
             break;
         case 'ArrowUp':
-            console.log('up')
+            this.moveUp();
             break;
         case 'ArrowDown':
             console.log('down')
@@ -66,10 +66,10 @@ MatrixModel.prototype.displayDigitByKeyPress = function (code) {
 MatrixModel.prototype.moveToRight = function () {
     this.attributes.grid.map(function (array) {
         return array.map(function (elem, i) {
-            if (elem !== '') {
-                let newIndex = i + 1;
-                return array.splice(newIndex, 0, array.splice(i, 1)[0]);
-           }
+            if (typeof elem === 'number') {
+                array.splice(i, 1)
+                return array.push(elem)        
+            }
         }) 
     })
 }
@@ -77,11 +77,48 @@ MatrixModel.prototype.moveToRight = function () {
 MatrixModel.prototype.moveToLeft = function () {
     this.attributes.grid.map(function (array) {
         return array.map(function (elem, i) {
-            if (elem !== '') {
-                let newIndex = i - 1;
-                return array.splice(newIndex, 0, array.splice(i, 1)[0])
+            if (typeof elem === 'number') {
+                array.splice(i, 1)
+                return array.unshift(elem)   
            }
         }) 
+    })
+}
+
+// TODO: IMPROVE MOVEUP METHOD
+MatrixModel.prototype.moveUp = function () {
+    var removedElem,
+        elemIndex,
+        matrix = this.attributes.grid,
+        arraysWithNumbers = matrix.filter(function (array) {
+            return array.find(function (elem) { return typeof elem === 'number' })
+        })  
+
+    arraysWithNumbers.map(function(array) {  
+        array.map(function (elem, i) {
+            if (typeof elem === 'number') {
+                elemIndex = i
+                removedElem = array.splice(i, 1, '')
+            }
+        })   
+    })
+
+    matrix[0].map(function (elem, i) {
+        if (elem === '') {
+            if (i === elemIndex) {
+                return matrix[0].splice(i, 1, removedElem);
+            }
+        } else {
+            matrix[1].map(function (elem, i){
+                if (elem === '') {
+                    if (i === elemIndex) {
+                        return matrix[1].splice(i, 1, removedElem);
+                    }
+                } else {
+                    
+                }
+            })
+        }
     })
 }
 
